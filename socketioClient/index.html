@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.io Notifications</title>
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Socket.io Notifications</h1>
+  <div>
+    <p>Listening for notifications on channel: <span id="channel-id"></span></p>
+  </div>
+
+  <script>
+    // Ganti dengan channel_id yang sesuai
+    const channelId = 'psp-id:1';
+
+    // Menampilkan channel_id
+    document.getElementById('channel-id').textContent = channelId;
+
+    // Membuat koneksi socket.io
+    const socket = io('http://localhost:3000');
+
+    // Bergabung ke channel tertentu
+    socket.emit('join', channelId);
+
+    // Menerima notifikasi dari server
+    socket.on('notification', (data) => {
+      console.log('Notification received:', data);
+      alert(`New Notification: ${data.message}`);
+    });
+  </script>
+</body>
+</html>
